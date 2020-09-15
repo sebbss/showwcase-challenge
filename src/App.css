@@ -9,6 +9,25 @@
   margin-top: 7.5%;
 }
 
+.main{
+  display: flex;
+  margin-top: 2rem;
+
+}
+.main-side-nav{
+  background: #000;
+  color: white;
+  width: 17rem;
+  height: 80vh;
+  margin: 0 2rem;
+
+}
+.main-layout{
+  background-color:orangered ;
+  flex: 1 ;
+  margin-right:2rem;
+}
+
 
 
 .App-header {

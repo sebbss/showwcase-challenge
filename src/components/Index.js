@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 
 
-function HomePage() {
+function Index() {
     const [name, setName] = useState('')
     return (
         <div className='container'>
@@ -25,4 +25,4 @@ function HomePage() {
     )
 }
 
-export default HomePage
+export default Index
