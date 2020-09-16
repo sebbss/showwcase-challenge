@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+ 
 }
 .container{
   width: 50vw;
@@ -14,6 +15,18 @@
   margin-top: 2rem;
 
 }
+.school-form{
+  display: block;
+    padding: .375rem .75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
 .main-side-nav{
   background: #000;
   color: white;
@@ -23,21 +36,8 @@
 
 }
 .main-layout{
-  background-color:orangered ;
+  background-color:#faf9f9;
   flex: 1 ;
   margin-right:2rem;
-}
-
-
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
 }
 
