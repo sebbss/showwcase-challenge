@@ -17,7 +17,7 @@
 }
 .school-form{
   display: block;
-    padding: .375rem .75rem;
+    padding: .375rem 1rem;
     font-size: 1rem;
     font-weight: 400;
     color: #495057;
@@ -36,8 +36,53 @@
 
 }
 .main-layout{
-  background-color:#faf9f9;
+  background-color:#fff;
   flex: 1 ;
   margin-right:2rem;
 }
 
+.education-form{
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom:1.5rem;
+}
+
+.education-form_heading{
+  flex: 1 0 100%;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  font-weight: 500;
+ 
+}
+
+.education-form_input_school{
+  flex: 1 0 100%;
+  margin-bottom: 1rem;
+}
+
+.education-form_input_degree{
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+.education-form_input_year{
+  margin-right: auto;
+  margin-bottom: 1rem;
+}
+
+.education-form_input_description{
+  flex: 1 0 70%;
+  margin-bottom: 1rem;
+}
+.description{
+  width: 88%;
+}
+
+.education-form_input_button{
+  align-self: flex-end;
+  box-sizing: border-box;
+  margin-bottom: 1rem;
+}
+.btn-send{
+  background-color: aqua;
+  width:8rem;
+}

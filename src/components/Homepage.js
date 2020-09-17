@@ -1,14 +1,16 @@
 import React from "react";
 import Modal from "react-modal";
-import AsyncSelect from "react-select/async";
 import Box from "./Box";
 import Button from "./Button";
+import Form from "./Form";
 
 const customStyles = {
   content: {
     top: "50%",
     left: "50%",
     right: "auto",
+    width: "30rem",
+    backgroundColor: "#999",
     bottom: "auto",
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
@@ -19,43 +21,45 @@ Modal.setAppElement("#root");
 
 function Homepage() {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-  const [inputValue, setValue] = React.useState('');
-  const [degree, setDegree] = React.useState('')
-  const [field, setField] = React.useState('')
-  const [startDate, setStartDate] = React.useState('')
-  const [endDate, setEndDate] = React.useState('')
+  const [inputValue, setValue] = React.useState("");
+  const [description, setDescription] = React.useState("");
+  const [CGPA, setCGPA] = React.useState(0);
+  const [degree, setDegree] = React.useState("");
+  const [field, setField] = React.useState("");
+  const [startDate, setStartDate] = React.useState("");
+  const [endDate, setEndDate] = React.useState("");
   const [school, setSchool] = React.useState([]);
-  
-  
 
-  const handleSubmit = async(event) => {
-      event.preventDefault();
-      const newSchoolData = {
-          'school':school.name,
-          degree,
-          field,
-          startDate,
-          endDate
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const newSchoolData = {
+      school: school.name,
+      degree,
+      description,
+      CGPA,
+      field,
+      startDate,
+      endDate,
+    };
+    var saveddata = (await JSON.parse(localStorage.getItem("data"))) || [];
+    await saveddata.unshift(newSchoolData);
+    console.log(newSchoolData);
+    localStorage.setItem("data", JSON.stringify(saveddata));
+    setIsOpen(false);
+  };
 
-    }
-      var saveddata = await JSON.parse(localStorage.getItem('data')) || []
-      await saveddata.push(newSchoolData)
-      localStorage.setItem('data', JSON.stringify(saveddata))
-      setIsOpen(false);
-      
-  }
-
-  const handleSchoolInputChange = value => {
+  const handleSchoolInputChange = (value) => {
     setSchool(value);
-  }
+  };
 
-
-  const handleInputChange = value => {
+  const handleInputChange = (value) => {
     setValue(value);
   };
 
   const loadOptions = (inputValue) => {
-    return fetch(`http://universities.hipolabs.com/search?name=${inputValue}`).then(res => res.json());
+    return fetch(
+      `http://universities.hipolabs.com/search?name=${inputValue}`
+    ).then((res) => res.json());
   };
 
   function openModal() {
@@ -66,16 +70,13 @@ function Homepage() {
     setIsOpen(false);
   }
   const name = sessionStorage.getItem("name");
-  const getData = JSON.parse(localStorage.getItem('data'))
-  
+  const getData = JSON.parse(localStorage.getItem("data"));
+
   return (
-  
     <div>
       <div className="add-education">
-        <p>Welcome to joseph's education page</p>
-        <Button className="btn-add" id="btn-add" onClick={openModal}>
-          Add new school
-        </Button>
+  <p>Welcome to {name||'anonymus user'}'s education page</p>
+        <Button onClick={openModal}>Add new school</Button>
       </div>
       <Modal
         isOpen={modalIsOpen}
@@ -83,54 +84,52 @@ function Homepage() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <form onSubmit={handleSubmit}>
-          <p>Add new school</p>
-          <hr />
-          <label>Name of school</label>
-          <br />
-          <AsyncSelect
-            cacheOptions
-            defaultOptions
-            value={school}
-            getOptionLabel={(e) => e.name}
-            getOptionValue={(e) => e.name}
-            loadOptions={loadOptions}
-            onInputChange={handleInputChange}
-            onChange={handleSchoolInputChange}
-          />
-          
-          <br />
-          <label>Degree</label>
-          <br />
-          <input className="school-form" required type='text' onChange={e=>setDegree(e.target.value)}/>
-          <br />
-          <label>Field of study</label>
-          <br />
-          <input className="school-form" required type='text'onChange={e=>setField(e.target.value)}/>
-          <br />
-          <label>Start Year</label>
-          <br />
-          <input className="school-form" required type='text' onChange={e=>setStartDate(e.target.value)}/>
-          <br />
-          <label>End Year</label>
-          <br />
-          <input className="school-form" required type='text' onChange={e=>setEndDate(e.target.value)}/>
-          <br />
-          <button type='submit'>submit</button>
-        </form>
-        <button onClick={closeModal}>close</button>
+        <Form
+          handleSubmit={handleSubmit}
+          school={school}
+          getOptionLabel={(e) => e.name}
+          getOptionValue={(e) => e.name}
+          loadOptions={loadOptions}
+          handleInputChange={handleInputChange}
+          handleSchoolInputChange={handleSchoolInputChange}
+          setDegree={(e) => setDegree(e.target.value)}
+          setField={(e) => setField(e.target.value)}
+          setStartDate={(e) => setStartDate(e.target.value)}
+          setEndDate={(e) => setEndDate(e.target.value)}
+          setDescription={(e) => setDescription(e.target.value)}
+          setCGPA={(e) => setCGPA(e.target.value)}
+        />
+        <Button onClick={closeModal} close>
+          close
+        </Button>
       </Modal>
       <div className="main">
         <div className="main-side-nav">
-          <p>Showcase University</p>
-          <p>Forward Bootcamp</p>
+          {getData === null ? (
+            <p>NO SCHOOl DATA</p>
+          ) : (
+            <div>
+              <p>{getData[0].school}</p>
+              <p>{getData[0].description}</p>
+            </div>
+          )}
         </div>
         <div className="main-layout">
-            {getData===null ? <p>No Education</p> 
-            : 
-            getData.map(education=>{
-                return <Box field={education.field} school={education.school} startDate={education.startDate} endDate={education.endDate}/>
-            })}
+          {getData === null ? (
+            <p>No Education</p>
+          ) : (
+            getData.map((education) => {
+              return (
+                <Box
+                  field={education.field}
+                  school={education.school}
+                  startDate={education.startDate}
+                  endDate={education.endDate}
+                  description={education.description}
+                />
+              );
+            })
+          )}
         </div>
       </div>
     </div>
