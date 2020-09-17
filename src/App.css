@@ -8,6 +8,9 @@
   background: rgb(238, 235, 235);
   margin-left: 25%;
   margin-top: 7.5%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .main{
@@ -85,4 +88,8 @@
 .btn-send{
   background-color: aqua;
   width:8rem;
+}
+
+.school-label{
+  margin-bottom: 4px;
 }
