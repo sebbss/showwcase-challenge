@@ -90,6 +90,7 @@
   width:8rem;
 }
 
-.school-label{
-  margin-bottom: 4px;
+.btn-enter{
+  display: inline-block;
+  background-color: aqua;
 }

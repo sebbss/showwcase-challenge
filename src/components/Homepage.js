@@ -69,10 +69,12 @@ function Homepage() {
   function closeModal() {
     setIsOpen(false);
   }
-  const name = sessionStorage.getItem("name");
+  const name = localStorage.getItem("name");
+
   const getData = JSON.parse(localStorage.getItem("data"));
 
   return (
+    
     <div>
       <div className="add-education">
   <p>Welcome to {name||'anonymus user'}'s education page</p>

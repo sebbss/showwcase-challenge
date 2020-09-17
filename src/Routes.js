@@ -12,8 +12,8 @@ export default class Routes extends Component {
             <div>
                 <BrowserRouter>
                     <div>
-                        <Route exact path='/' component={HomePage}/>
-                        <Route path='/main' component={Main}/>
+                        <Route exact path='/' component={HomePage} name='home'/>
+                        <Route path='/main' component={Main} name='main'/>
                     </div>
                 </BrowserRouter>
             </div>

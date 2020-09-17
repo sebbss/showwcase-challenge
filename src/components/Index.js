@@ -1,36 +1,52 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import Button from './Button'
+import { useHistory } from 'react-router-dom';
 
-const Welcome = styled.div`
+
+const Heading = styled.p`
+font-size:20px;
+font-weight:400px;`
+
+
+const Wrapper = styled.div`
+text-align:left;
 display:flex;
-flex-direction: column;`
+flex-direction: column;
+margin-bottom:1rem;
+justify-content: space-between;`
 
 function Index() {
+    let history = useHistory()
   const [name, setName] = useState("");
   return (
     <div className="container">
-      <Welcome>
-        <p>Hi there, welcome to your education showcase</p>
+      <div>
+        <Heading>Hi there, welcome to your education showcase</Heading>
 
         <form
-          onSubmit={(e) => {
+          onSubmit={async(e) => {
             e.preventDefault();
-            sessionStorage.setItem("user", name);
+            
+            await localStorage.setItem("name", name);
+
+            history.push('/main')
           }}
         >
-          <label className="school-label">Type your name and click enter</label>
-          <br />
-          
-          <input
+            <Wrapper>
+            <label >Type your name and click enter</label>
+            <input
             onChange={(e) => {
               setName(e.target.value);
             }}
+            className='school-form'
           />
-          <br />
-          <Button>Enter</Button>
+            
+          
+            </Wrapper>
+
+          <input type='submit' className="school-form btn-enter" value='Enter'/>
         </form>
-      </Welcome>
+      </div>
     </div>
   );
 }
